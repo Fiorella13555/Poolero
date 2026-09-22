@@ -57,3 +57,12 @@ class ResultadoMatch(BaseModel):
     distancia_destino_km: float
     precio_soles: float
     km_recorridos: float
+
+
+class SolicitudCreate(BaseModel):
+    """Lo que manda el rutero al querer unirse a un viaje ya encontrado en /buscar."""
+    pasajero_id: str
+    distancia_pickup_km: float
+    distancia_destino_km: float
+    precio_soles: float
+    km_recorridos: float
