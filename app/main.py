@@ -10,6 +10,7 @@ Luego abres http://localhost:8000/docs para probar cada endpoint.
 """
 
 from fastapi import FastAPI, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
 from typing import List
 
 from .models import ViajePoolero, BusquedaRutero, ResultadoMatch
@@ -17,6 +18,16 @@ from .matching import buscar_matches, calcular_km_recorridos, calcular_precio
 from . import repositorio
 
 app = FastAPI(title="Poolero/Rutero API")
+
+# Permite que el frontend (que vive en otro dominio) le hable a esta API.
+# En producción real conviene restringir allow_origins a tu dominio exacto,
+# pero mientras pruebas, "*" (cualquier origen) es lo más simple.
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 
 @app.post("/viajes", response_model=ViajePoolero)
